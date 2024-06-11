@@ -36,4 +36,18 @@ const showUserData = async (productId, IdUzytkownik) => {
   return result;
 };
 
-export { addProduct, showProducts, deleteProduct, updateProduct, showUserData };
+const cart = async (userId) => {
+  const result = await pool.query(
+    `SELECT Koszyk FROM Uzytkownicy WHERE IdUżytkownicy = ${userId}`
+  );
+  return result;
+};
+
+export {
+  addProduct,
+  showProducts,
+  deleteProduct,
+  updateProduct,
+  showUserData,
+  cart,
+};

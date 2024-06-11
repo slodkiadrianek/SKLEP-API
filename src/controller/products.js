@@ -39,6 +39,12 @@ const deleteProductPage = async (req, res, next) => {
   const token = req.body.token;
   const [userData] = await findUserId(token);
   const userId = userData[0]["idUżytkownicy"];
+  const expirationTime = userData[0].CzasKodu;
+  const actualDate = new Date().getTime();
+  if (actualDate > +expirationTime)
+    return res
+      .status(500)
+      .json({ message: "Zostałeś wylogowany zaloguj się ponownie" });
   await deleteProduct(productId, userId);
   return res.json({ message: `Pomyślnie usunięto produkt` });
 };
@@ -50,6 +56,12 @@ const updateProductPage = async (req, res, next) => {
   const price = req.body.price;
   const [userData] = await findUserId(token);
   const userId = userData[0]["idUżytkownicy"];
+  const expirationTime = userData[0].CzasKodu;
+  const actualDate = new Date().getTime();
+  if (actualDate > +expirationTime)
+    return res
+      .status(500)
+      .json({ message: "Zostałeś wylogowany zaloguj się ponownie" });
   await updateProduct(name, price, productId, userId);
   return res.json({ message: `Pomyślnie zaaktualizwoano produkt` });
 };

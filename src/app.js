@@ -16,7 +16,9 @@ app.use((req, res, next) => {
 
 import productRoute from "./routes/products.js";
 import authentication from "./routes/authentication.js";
+import orders from "./routes/orders.js";
 
+app.use(orders);
 app.use(authentication);
 
 app.use(productRoute);
