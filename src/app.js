@@ -17,9 +17,11 @@ app.use((req, res, next) => {
 import productRoute from "./routes/products.js";
 import authentication from "./routes/authentication.js";
 import orders from "./routes/orders.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 app.use(orders);
 app.use(authentication);
 
 app.use(productRoute);
+app.use(errorHandler);
 app.listen(8080);

@@ -8,6 +8,6 @@ import {
 
 router.post("/loginAuthentication", loginAuthenticationPage);
 
-router.post("/registerAuthentication", registerAuthenticationPage);
+router.put("/registerAuthentication", registerAuthenticationPage);
 
 export default router;

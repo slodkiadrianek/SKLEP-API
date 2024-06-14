@@ -1,4 +1,5 @@
 import e from "express";
+import isAuth from "../middleware/is-auth.js";
 import {
   productsPage,
   addProductPage,
@@ -10,12 +11,12 @@ const router = e.Router();
 
 router.get("/", productsPage);
 
-router.post("/addProduct", addProductPage);
+router.post("/addProductt", isAuth, addProductPage);
 
-router.post("/deleteProduct", deleteProductPage);
+router.delete("/deleteProduct", isAuth, deleteProductPage);
 
-router.post("/updateProduct", updateProductPage);
+router.post("/updateProduct", isAuth, updateProductPage);
 
-router.post("/showUserData", showUserDataPage);
+router.post("/showUserData", isAuth, showUserDataPage);
 
 export default router;

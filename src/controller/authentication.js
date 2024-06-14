@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import { configDotenv } from "dotenv";
+configDotenv();
+
 import {
   registerAuthentication,
   loginAuthentication,
@@ -21,14 +25,19 @@ const loginAuthenticationPage = async (req, res, next) => {
         message: `Wprowadziłeś złe hasło`,
       });
     }
-    crypto.randomBytes(16, async (err, Buffer) => {
-      const token = Buffer.toString("hex");
-      const tokenExpiration = new Date().getTime() + 60 * 60 * 1000;
-      await addSpecialToken(token, tokenExpiration, email);
-      return res.json({
-        message: `Zalogowano pomyślnie`,
-        yourToken: token,
-      });
+    console.log(accountPassword[0]["idUżytkownicy"]);
+    const token = jwt.sign(
+      {
+        email: accountPassword[0]["Email"],
+        userId: accountPassword[0]["idUżytkownicy"],
+      },
+      process.env.TOKEN_KEY,
+      { expiresIn: "1h" }
+    );
+
+    return res.status(200).json({
+      message: `Zalogowano pomyślnie`,
+      yourToken: token,
     });
   } catch (error) {
     return error;

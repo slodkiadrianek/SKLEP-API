@@ -10,7 +10,7 @@ const registerAuthentication = async (name, surname, email, password) => {
 
 const loginAuthentication = async (email) => {
   const result = await pool.query(
-    `SELECT Hasło FROM Uzytkownicy WHERE Email = '${email}' LIMIT 1`
+    `SELECT * FROM Uzytkownicy WHERE Email = '${email}' LIMIT 1`
   );
   return result;
 };

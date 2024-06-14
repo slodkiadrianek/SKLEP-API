@@ -18,16 +18,8 @@ const productsPage = async (req, res, next) => {
 const addProductPage = async (req, res, next) => {
   const name = req.body.name;
   const price = req.body.price;
-  const token = req.body.token;
-
-  const [userData] = await findUserId(token);
-  const userId = userData[0]["idUżytkownicy"];
-  const expirationTime = userData[0].CzasKodu;
-  const actualDate = new Date().getTime();
-  if (actualDate > +expirationTime)
-    return res
-      .status(500)
-      .json({ message: "Zostałeś wylogowany zaloguj się ponownie" });
+  const userId = req.userId;
+  console.log(`haj`, userId);
   await addProduct(name, price, userId);
   return res.status(201).json({ message: "Pomyślnie dodano produkt" });
 };
@@ -35,42 +27,41 @@ const addProductPage = async (req, res, next) => {
 // dodaj usuwanie i edytowanie produktu
 
 const deleteProductPage = async (req, res, next) => {
-  const productId = req.body.productId;
-  const token = req.body.token;
-  const [userData] = await findUserId(token);
-  const userId = userData[0]["idUżytkownicy"];
-  const expirationTime = userData[0].CzasKodu;
-  const actualDate = new Date().getTime();
-  if (actualDate > +expirationTime)
-    return res
-      .status(500)
-      .json({ message: "Zostałeś wylogowany zaloguj się ponownie" });
-  await deleteProduct(productId, userId);
-  return res.json({ message: `Pomyślnie usunięto produkt` });
+  try {
+    const productId = req.body.productId;
+    const userId = req.userId;
+
+    await deleteProduct(productId, userId);
+
+    return res.json({ message: `Pomyślnie usunięto produkt` });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const updateProductPage = async (req, res, next) => {
-  const productId = req.body.productId;
-  const token = req.body.token;
-  const name = req.body.name;
-  const price = req.body.price;
-  const [userData] = await findUserId(token);
-  const userId = userData[0]["idUżytkownicy"];
-  const expirationTime = userData[0].CzasKodu;
-  const actualDate = new Date().getTime();
-  if (actualDate > +expirationTime)
-    return res
-      .status(500)
-      .json({ message: "Zostałeś wylogowany zaloguj się ponownie" });
-  await updateProduct(name, price, productId, userId);
-  return res.json({ message: `Pomyślnie zaaktualizwoano produkt` });
+  try {
+    const productId = req.body.productId;
+    const name = req.body.name;
+    const price = req.body.price;
+    const userId = req.userId;
+
+    await updateProduct(name, price, productId, userId);
+    return res.json({ message: `Pomyślnie zaaktualizwoano produkt` });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const showUserDataPage = async (req, res, next) => {
-  const productId = req.body.productId;
-  const IdUzytkownik = req.body.IdUzytkownik;
-  const [result] = await showUserData(productId, IdUzytkownik);
-  return res.status(200).json({ userData: result[0] });
+  try {
+    const productId = req.body.productId;
+    const IdUzytkownik = req.body.IdUzytkownik;
+    const [result] = await showUserData(productId, IdUzytkownik);
+    return res.status(200).json({ userData: result[0] });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export {
