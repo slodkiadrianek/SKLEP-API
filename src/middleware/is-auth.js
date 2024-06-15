@@ -4,9 +4,8 @@ import AppError from "../model/errorApp.js";
 configDotenv();
 export default async function isAuth(req, res, next) {
   const token = req.get("Authorization").split(" ")[1];
-  let decoded;
   try {
-    decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     if (!decoded) {
       throw new AppError("Not authorized", 401);
     }
