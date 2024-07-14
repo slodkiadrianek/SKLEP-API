@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title%></title>
+    <link rel="stylesheet" href="./css/landing--page.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <h1 id="title">Domowa chmura</h1>
+    <a class="backButton" href="/">Wróć</a>
+    <form
+      action="/photosValidation"
+      enctype="multipart/form-data"
+      method="post"
+      class="addPhoto"
+    >
+      <input type="file" name="file" id="file" accept="image/*" multiple />
+      <input type="hidden" name="person" value="<%=person%>" />
+      <button type="submit">Dodaj zdjęcia</button>
+    </form>
+    <div class="photos--container">
+      <%for(const el of images){%>
+      <form action="/photoDelete" method="post" class="photo--container">
+        <a href="/<%=el.fileName%>" target="_blank"
+          ><img
+            src="/<%=el.fileName%>"
+            alt="<%=el.fileName%>"
+            width="250"
+            height="150"
+            class="image"
+        /></a>
+
+        <p class="filename"><%=el.fileName%></p>
+        <a
+          class="downloadButton"
+          href="/<%=el.fileName%>"
+          download="/<%=el.fileName%>"
+          >Pobierz</a
+        >
+        <input type="hidden" name="fileName" value="<%=el.fileName%>" />
+        <input type="hidden" name="person" value="<%=person%>" />
+        <button class="deleteButton" type="submit">Usuń</button>
+      </form>
+      <%}%>
+    </div>
+  </body>
+</html>

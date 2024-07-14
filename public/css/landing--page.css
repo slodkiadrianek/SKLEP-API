@@ -1,0 +1,108 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #6a92ff;
+  font-family: "Roboto", sans-serif;
+
+  line-height: 1.5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#title {
+  color: white;
+  font-size: 4vmax;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+}
+.select--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2vmax;
+  font-size: 1.5vmax;
+  height: 80vh;
+}
+.selector {
+  padding: 2vmax;
+  background-color: #6a92ff;
+  border: 0.2vmax solid rgb(255, 255, 255);
+  border-radius: 0.4vmax;
+  color: white;
+  text-decoration: none;
+}
+.photos--container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap: 2vmax;
+  row-gap: 2vmax;
+}
+.photo--container {
+  /* width: fit-content; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-wrap: wrap;
+  white-space: pre-wrap;
+}
+.deleteButton {
+  background-color: #da2a2a;
+  padding: 0.3vmax 2vmax;
+  color: white;
+  border: none;
+  border-radius: 0.2vmax;
+  font-size: 1vmax;
+}
+.deleteButton:hover {
+  background-color: white;
+  color: #da2a2a;
+  cursor: pointer;
+}
+.addPhoto {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  margin-block: 2vmax;
+}
+.filename {
+  white-space: pre;
+  text-wrap: normal;
+}
+.backButton,
+.downloadButton {
+  background-color: #003de4;
+  padding: 0.3vmax 1vmax;
+  border-radius: 0.3vmax;
+  text-decoration: none;
+  color: white;
+  margin-bottom: 0.5vmax;
+  font-size: 1vmax;
+}
+.downloadButton:hover {
+  background-color: white;
+  color: #003de4;
+}
+.image {
+  width: 18vmax;
+  height: 10vmax;
+}
+
+@media only screen and (max-width: 600px) {
+  .photos--container {
+    display: grid;
+    grid-template-columns: auto;
+    column-gap: 2vmax;
+    row-gap: 2vmax;
+  }
+  .backButton,
+  .deleteButton,
+  .downloadButton {
+    font-size: 1.5vmax;
+  }
+}
