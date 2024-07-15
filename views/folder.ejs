@@ -20,6 +20,11 @@
       <input type="hidden" name="person" value="<%=person%>" />
       <button type="submit">Dodaj zdjęcia</button>
     </form>
+    <form method="post" action="/search">
+      <input type="date" name="date" aria-label="date" />
+      <input type="hidden" name="person" value="<%=person%>" />
+      <button type="submit">Szukaj</button>
+    </form>
     <div class="photos--container">
       <%for(const el of images){%>
       <form action="/photoDelete" method="post" class="photo--container">
@@ -39,6 +44,7 @@
           download="/<%=el.fileName%>"
           >Pobierz</a
         >
+
         <input type="hidden" name="fileName" value="<%=el.fileName%>" />
         <input type="hidden" name="person" value="<%=person%>" />
         <button class="deleteButton" type="submit">Usuń</button>
